@@ -1,7 +1,7 @@
 package main.java.me.mkkg.springstester.tester;
 
 import main.java.me.mkkg.springstester.tester.cards.Card;
-import main.java.me.mkkg.springstester.tester.cards.TestingCard; // Import nowej karty
+import main.java.me.mkkg.springstester.tester.cards.TestingCard;
 
 import javax.swing.*;
 import java.awt.*;
