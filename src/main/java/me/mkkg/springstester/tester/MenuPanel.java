@@ -20,8 +20,7 @@ public class MenuPanel {
 
     public JPanel createPanel() {
 
-        // Poprawka Singletona: używamy 'this' zamiast 'new'
-        // Dokładnie tak, jak miałeś w 'myMenuPanel.java'
+
         MenuPanel inst = this;
 
         JPanel panel = new JPanel();
@@ -52,7 +51,7 @@ public class MenuPanel {
 
         MenuPanel.instance = inst;
 
-        // registerEvents() jest teraz wywoływane przez SpringsTester
+
         return panel;
     }
 
@@ -70,12 +69,10 @@ public class MenuPanel {
         SpringsTester springsTester = SpringsTester.getInstance();
         MenuPanel inst = MenuPanel.getInstance();
 
-        // --- ZMODYFIKOWANA AKCJA (z myMenuPanel.java) ---
+
         inst.testButton.addActionListener(e -> {
-            // 1. Zmień panel (tak jak było)
             changeCard(springsTester.getTestingCard());
 
-            // 2. Odśwież tabelę (logika przeniesiona)
             TestingCard testingCardInstance = TestingCard.getInstance();
             if (testingCardInstance != null) {
                 testingCardInstance.refreshTableData();
@@ -83,7 +80,7 @@ public class MenuPanel {
                 System.err.println("Błąd: testingCardInstance jest null!");
             }
         });
-        // -------------------------
+
 
         inst.resultsButton.addActionListener(e -> changeCard(springsTester.getResultsCard()));
         inst.aboutButton.addActionListener(e -> changeCard(springsTester.getAboutCard()));
