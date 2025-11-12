@@ -24,6 +24,7 @@ public class TestPanel {
 
         JPanel addPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton writeButton = new JButton("Zapisz nowy test (dane demo)");
+        writeButton.setFocusable(false);
 
         writeButton.addActionListener(e -> handleWriteToDatabase(panel));
         addPanel.add(writeButton);
@@ -51,6 +52,7 @@ public class TestPanel {
 
         JPanel actionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton deleteButton = new JButton("Usuń wybrany wiersz");
+        deleteButton.setFocusable(false);
 
 
         deleteButton.addActionListener(e -> handleDeleteSelectedRow(panel));
