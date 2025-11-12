@@ -16,7 +16,11 @@ public class MenuPanel {
 
     public JPanel createPanel() {
 
-        MenuPanel inst = new MenuPanel();
+        // MenuPanel inst = new MenuPanel();
+        MenuPanel inst = this; /*Nie odświeżało tabelki przy zmianie zakładki
+                                (usunięcie danych z poziomu bazy, i kliknięcie zakładki Run Test)
+                                Będę szczery tutaj mi chat powiedział, mówił, że obiekt inaczej nie wskazuje na to samo
+                                co widoczne na ekranie, bo jak dobrze rozumiem MenuPanel inst = this tworzy wskaźnik*/
 
         JPanel panel = new JPanel();
         panel.setBackground(new Color(230, 230, 230));
@@ -60,14 +64,28 @@ public class MenuPanel {
         }
     }
 
+
     public void registerEvents() {
 
         SpringsTester springsTester = SpringsTester.getInstance();
         MenuPanel inst = MenuPanel.getInstance();
 
-        inst.testButton.addActionListener(e -> changePanel(springsTester.getTestPanel()));
-        inst.resultsButton.addActionListener(e -> changePanel(springsTester.getResultsPanel()));
-        inst.aboutButton.addActionListener(e -> changePanel(springsTester.getAboutPanel()));
+        inst.testButton.addActionListener(e -> {
+            changePanel(springsTester.getTestPanel());
+
+            //odświeżanie tabelki bazą
+
+            TestPanel testPanelInstance = TestPanel.getInstance();
+            if (testPanelInstance != null) {
+                testPanelInstance.refreshTableData();
+            }
+        });
+
+        inst.resultsButton.addActionListener(e ->
+                changePanel(springsTester.getResultsPanel()));
+
+        inst.aboutButton.addActionListener(e ->
+                changePanel(springsTester.getAboutPanel()));
     }
 
     public JButton getTestButton() {
@@ -86,3 +104,4 @@ public class MenuPanel {
         return instance;
     }
 }
+
