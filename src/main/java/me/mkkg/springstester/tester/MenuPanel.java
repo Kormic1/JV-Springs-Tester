@@ -1,6 +1,7 @@
 package main.java.me.mkkg.springstester.tester;
 
 import main.java.me.mkkg.springstester.tester.cards.Card;
+import main.java.me.mkkg.springstester.tester.cards.ResultsCard; // Import nowej karty
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +20,8 @@ public class MenuPanel {
 
     public JPanel createPanel() {
 
-        MenuPanel inst = new MenuPanel();
+
+        MenuPanel inst = this;
 
         JPanel panel = new JPanel();
         panel.setBackground(BG_COLOR);
@@ -55,7 +57,6 @@ public class MenuPanel {
     }
 
     public void changeCard(Card card) {
-
         SpringsTester springsTester = SpringsTester.getInstance();
 
         if (!springsTester.getCurrentlyDisplayedCard().equals(card)) {
@@ -66,11 +67,21 @@ public class MenuPanel {
     }
 
     public void registerEvents() {
-
         SpringsTester springsTester = SpringsTester.getInstance();
         MenuPanel inst = MenuPanel.getInstance();
 
-        inst.testButton.addActionListener(e -> changeCard(springsTester.getTestingCard()));
+
+        inst.testButton.addActionListener(e -> {
+            changeCard(springsTester.getTestingCard());
+
+            ResultsCard testingCardInstance = ResultsCard.getInstance();
+            if (testingCardInstance != null) {
+                testingCardInstance.refreshTableData();
+            } else {
+                System.err.println("Błąd: coś się jebło!");
+            }
+        });
+
         inst.resultsButton.addActionListener(e -> changeCard(springsTester.getResultsCard()));
         inst.aboutButton.addActionListener(e -> changeCard(springsTester.getAboutCard()));
     }

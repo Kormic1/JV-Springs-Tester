@@ -27,7 +27,7 @@ public class SpringsTester {
         SpringsTester.instance = inst;
 
         GridBagConstraints c = new GridBagConstraints();
-
+        
         MenuPanel menuPanelInst = new MenuPanel();
         inst.testingCard = new TestingCard();
         inst.resultsCard = new ResultsCard();
@@ -55,6 +55,7 @@ public class SpringsTester {
         inst.currentlyDisplayedCard = inst.testingCard;
         inst.currentlyDisplayedCard.getPanel().setVisible(true);
 
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Springs Tester");
         frame.setSize(APP_SIZE);
@@ -62,6 +63,7 @@ public class SpringsTester {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
+
 
     public JPanel getMenuPanel() {
         return menuPanel;
