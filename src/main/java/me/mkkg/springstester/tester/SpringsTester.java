@@ -55,8 +55,6 @@ public class SpringsTester {
         inst.currentlyDisplayedCard = inst.testingCard;
         inst.currentlyDisplayedCard.getPanel().setVisible(true);
 
-        menuPanelInst.registerEvents();
-
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Springs Tester");

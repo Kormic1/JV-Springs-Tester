@@ -51,6 +51,8 @@ public class MenuPanel {
 
         MenuPanel.instance = inst;
 
+        registerEvents();
+
         return panel;
     }
 
