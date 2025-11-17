@@ -1,7 +1,7 @@
 package main.java.me.mkkg.springstester.tester;
 
 import main.java.me.mkkg.springstester.tester.cards.Card;
-import main.java.me.mkkg.springstester.tester.cards.TestingCard;
+import main.java.me.mkkg.springstester.tester.cards.ResultsCard; // Import nowej karty
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,7 +51,6 @@ public class MenuPanel {
 
         MenuPanel.instance = inst;
 
-
         return panel;
     }
 
@@ -73,14 +72,13 @@ public class MenuPanel {
         inst.testButton.addActionListener(e -> {
             changeCard(springsTester.getTestingCard());
 
-            TestingCard testingCardInstance = TestingCard.getInstance();
+            ResultsCard testingCardInstance = ResultsCard.getInstance();
             if (testingCardInstance != null) {
                 testingCardInstance.refreshTableData();
             } else {
-                System.err.println("Błąd: testingCardInstance jest null!");
+                System.err.println("Błąd: coś się jebło!");
             }
         });
-
 
         inst.resultsButton.addActionListener(e -> changeCard(springsTester.getResultsCard()));
         inst.aboutButton.addActionListener(e -> changeCard(springsTester.getAboutCard()));
