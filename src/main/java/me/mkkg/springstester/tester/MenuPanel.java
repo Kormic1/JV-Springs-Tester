@@ -75,14 +75,17 @@ public class MenuPanel {
         inst.aboutButton.addActionListener(e -> changeCard(springsTester.getAboutCard()));
     }
 
+    @SuppressWarnings("unused")
     public JButton getTestButton() {
         return this.testButton;
     }
 
+    @SuppressWarnings("unused")
     public JButton getResultsButton() {
         return this.resultsButton;
     }
 
+    @SuppressWarnings("unused")
     public JButton getAboutButton() {
         return this.aboutButton;
     }

@@ -18,6 +18,7 @@ public class Card {
         return panel;
     }
 
+    @SuppressWarnings("unused")
     public static Card getInstance() {
         return instance;
     }

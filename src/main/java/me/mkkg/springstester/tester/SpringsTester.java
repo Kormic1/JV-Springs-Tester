@@ -63,6 +63,7 @@ public class SpringsTester {
         frame.setVisible(true);
     }
 
+    @SuppressWarnings("unused")
     public JPanel getMenuPanel() {
         return menuPanel;
     }
