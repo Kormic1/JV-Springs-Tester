@@ -88,7 +88,7 @@ public class Graph extends JPanel {
 
         // X becomes Y, Y becomes -X
         int yLabelXPos = -(getHeight() / 2 + fm.getAscent() / 2);
-        int yLabelYPos = marginX / 2 - ticksLength;
+        int yLabelYPos = marginX / 2 - 2 * ticksLength; // 2 * ticksLength to make space for axis ticks
 
         g2d.drawString(graphOptions.yLabel, yLabelXPos, yLabelYPos);
 

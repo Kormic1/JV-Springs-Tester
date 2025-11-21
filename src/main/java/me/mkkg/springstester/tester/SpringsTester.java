@@ -17,6 +17,8 @@ public class SpringsTester {
 
     private Card currentlyDisplayedCard;
 
+    private boolean isTestInProgress;
+
     private static SpringsTester instance;
 
     public static void main(String[] args) {
@@ -26,12 +28,17 @@ public class SpringsTester {
         SpringsTester inst = new SpringsTester();
         SpringsTester.instance = inst;
 
+        inst.isTestInProgress = false;
+
         GridBagConstraints c = new GridBagConstraints();
 
         MenuPanel menuPanelInst = new MenuPanel();
         inst.testingCard = new TestingCard();
         inst.resultsCard = new ResultsCard();
         inst.aboutCard = new AboutCard();
+
+        inst.currentlyDisplayedCard = inst.testingCard;
+        inst.currentlyDisplayedCard.getPanel().setVisible(true);
 
         inst.menuPanel = menuPanelInst.createPanel();
         c.fill = GridBagConstraints.BOTH;
@@ -51,9 +58,6 @@ public class SpringsTester {
         frame.add(inst.testingCard.getPanel(), c);
         frame.add(inst.resultsCard.getPanel(), c);
         frame.add(inst.aboutCard.getPanel(), c);
-
-        inst.currentlyDisplayedCard = inst.testingCard;
-        inst.currentlyDisplayedCard.getPanel().setVisible(true);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setTitle("Springs Tester");
@@ -86,6 +90,14 @@ public class SpringsTester {
 
     public void setCurrentlyDisplayedCard(Card newCard) {
         this.currentlyDisplayedCard = newCard;
+    }
+
+    public boolean isTestInProgress() {
+        return isTestInProgress;
+    }
+
+    public void setTestInProgress(boolean testInProgress) {
+        this.isTestInProgress = testInProgress;
     }
 
     public static SpringsTester getInstance() {

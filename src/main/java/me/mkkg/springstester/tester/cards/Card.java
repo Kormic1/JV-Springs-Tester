@@ -1,8 +1,11 @@
 package main.java.me.mkkg.springstester.tester.cards;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Card {
+
+    protected static final Color BG_COLOR = new Color(200, 200, 200);
 
     protected final JPanel panel;
     private static Card instance;
