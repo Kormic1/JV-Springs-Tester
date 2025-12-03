@@ -27,7 +27,7 @@ public class SpringsTester {
         SpringsTester.instance = inst;
 
         GridBagConstraints c = new GridBagConstraints();
-        
+
         MenuPanel menuPanelInst = new MenuPanel();
         inst.testingCard = new TestingCard();
         inst.resultsCard = new ResultsCard();
@@ -54,6 +54,8 @@ public class SpringsTester {
 
         inst.currentlyDisplayedCard = inst.testingCard;
         inst.currentlyDisplayedCard.getPanel().setVisible(true);
+
+        menuPanelInst.registerEvents();
 
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

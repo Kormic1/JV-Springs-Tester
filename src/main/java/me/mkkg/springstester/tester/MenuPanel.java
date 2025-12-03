@@ -1,7 +1,7 @@
 package main.java.me.mkkg.springstester.tester;
 
 import main.java.me.mkkg.springstester.tester.cards.Card;
-import main.java.me.mkkg.springstester.tester.cards.ResultsCard; // Import nowej karty
+import main.java.me.mkkg.springstester.tester.cards.ResultsCard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -50,9 +50,7 @@ public class MenuPanel {
         inst.aboutButton = aboutButton;
 
         MenuPanel.instance = inst;
-
         registerEvents();
-
         return panel;
     }
 

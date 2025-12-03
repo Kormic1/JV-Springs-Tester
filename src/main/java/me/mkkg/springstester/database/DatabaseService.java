@@ -1,4 +1,4 @@
-package main.java.me.mkkg.springstester.Database;
+package main.java.me.mkkg.springstester.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,13 +15,11 @@ public class DatabaseService {
 
     private static DatabaseService instance;
 
-    //jest pewnie bardziej kompaktowy zapis ale tak jest czytelnie
-
     private final String dbHost = "localhost";
     private final String dbPort = "5432";
     private final String dbName = "test";
     private final String dbUser = "postgres";
-    private final String dbPassword = "postgres"; // Twoje hasło
+    private final String dbPassword = "postgres";
     private final String dbSslMode = "prefer";
     private final String dbConnectTimeout = "10";
 
@@ -37,7 +35,6 @@ public class DatabaseService {
         dbProps.setProperty("connect_timeout", dbConnectTimeout);
 
         try {
-            //sterownik
             Class.forName("org.postgresql.Driver");
         } catch (ClassNotFoundException e) {
             System.err.println(" Nie znaleziono sterownika PostgreSQL JDBC");
@@ -51,9 +48,9 @@ public class DatabaseService {
         }
         return instance;
     }
-    //write, zmienne placeholdery
-    public void writeTestData(String data1, String data2, String data3) throws SQLException {
-        String sql = "INSERT INTO test_table(test_data1, test_data2, test_data3) VALUES (?, ?, ?)";
+
+    public void writeTestData(String data1, String data2, String data3, String b64Image) throws SQLException {
+        String sql = "INSERT INTO test_table(test_data1, test_data2, test_data3, b64_image) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DriverManager.getConnection(dbUrl, dbProps);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -61,10 +58,11 @@ public class DatabaseService {
             pstmt.setString(1, data1);
             pstmt.setString(2, data2);
             pstmt.setString(3, data3);
+            pstmt.setString(4, b64Image); // Zapisujemy Base64
             pstmt.executeUpdate();
         }
     }
-    //zczytywanie/tabelkowanie
+
     public List<Object[]> readAllTestData() throws SQLException {
         List<Object[]> results = new ArrayList<>();
         String sql = "SELECT test_id, test_data1, test_data2, test_data3 FROM test_table ORDER BY test_id ASC";
@@ -84,7 +82,25 @@ public class DatabaseService {
         }
         return results;
     }
-    //delet
+
+    public String getImageData(int testId) throws SQLException {
+        String sql = "SELECT b64_image FROM test_table WHERE test_id = ?";
+        String b64Image = null;
+
+        try (Connection conn = DriverManager.getConnection(dbUrl, dbProps);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, testId);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    b64Image = rs.getString("b64_image");
+                }
+            }
+        }
+        return b64Image;
+    }
+
     public void deleteTestData(int testId) throws SQLException {
         String sql = "DELETE FROM test_table WHERE test_id = ?";
 
@@ -96,4 +112,3 @@ public class DatabaseService {
         }
     }
 }
-
