@@ -13,6 +13,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.io.IOException;
 
@@ -105,14 +106,29 @@ public class ResultsCard extends Card {
     }
 
     private void newFilter() {
-        RowFilter<TableModel, Object> rf = null;
-        try {
-
-            rf = RowFilter.regexFilter("(?i)" + searchField.getText());
-        } catch (java.util.regex.PatternSyntaxException e) {
+        String text = searchField.getText();
+        
+        if (text.trim().length() == 0) {
+            sorter.setRowFilter(null);
             return;
         }
-        sorter.setRowFilter(rf);
+
+        try {
+            String[] parts = text.trim().split("\\s+");
+
+            List<RowFilter<TableModel, Object>> filters = new ArrayList<>();
+
+            for (String part : parts) {
+                if (!part.isEmpty()) {
+                    filters.add(RowFilter.regexFilter("(?i)" + part));
+                }
+            }
+            
+            sorter.setRowFilter(RowFilter.andFilter(filters));
+
+        } catch (java.util.regex.PatternSyntaxException e) {
+            
+        }
     }
 
     private void handleExportToPdf(Component parentComponent) {
